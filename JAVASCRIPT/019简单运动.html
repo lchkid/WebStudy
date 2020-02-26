@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {margin: 0; padding: 0;}
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            left: 0;
+            top: 100px;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var eDiv = document.getElementById("div1");
+            var eBtn = document.getElementById("btn1");
+            var timer = null;
+            eBtn.onclick = function(){
+                //清除定时器
+                clearInterval(timer);
+                timer = setInterval(() => {
+                    //if...else将运动和停止分开
+                    if(eDiv.offsetLeft >= 400){
+                        clearInterval(timer);
+                    }else{
+                        eDiv.style.left = eDiv.offsetLeft + 5 + "px";
+                    }
+                }, 30);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="div1"></div>
+    <button id="btn1">开始运动</button>
+</body>
+</html>

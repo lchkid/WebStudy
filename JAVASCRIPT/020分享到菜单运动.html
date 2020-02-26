@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <style>
+        #div1 {
+            width: 100px;
+            height: 200px;
+            background-color: grey;
+            position: absolute;
+            top: 400px;
+            left: -100px;
+        }
+        #span1 {
+            position: absolute;
+            width: 20px;
+            height: 60px;
+            background-color: orange;
+            font-size: 16px;
+            line-height: 20px;
+            text-align: center;
+            top: 70px;
+            left: 100px;
+        }
+    </style>
+    <script>
+        //只需传入一个参数即可，speed靠判断改变数值
+        var timer = null;
+        function share(l){  //l是运动到达目的地的offsetLeft
+            var oDiv = document.getElementById("div1");
+            var speed = 5;
+            //若当前位置l比目标位置l大则-5否则+5
+            speed = l > oDiv.offsetLeft ? Math.abs(speed) : -Math.abs(speed);
+            clearInterval(timer);
+            timer = setInterval(() => {
+                if(oDiv.offsetLeft == l){
+                        clearInterval(timer);
+                }else{
+                    oDiv.style.left = oDiv.offsetLeft + speed + "px";
+                }
+            }, 30);
+        }
+
+
+        
+        window.onload = function(){
+            var oDiv = document.getElementById("div1");
+            oDiv.onmouseover = function(){
+                share(0);
+                // clearInterval(timer);
+                // timer = setInterval(() => {
+                //     if(oDiv.offsetLeft == 0){
+                //         clearInterval(timer);
+                //     }else{
+                //         oDiv.style.left = oDiv.offsetLeft + speed + "px";
+                //     }
+                // }, 30);
+            }
+            oDiv.onmouseout = function(){
+                share(-100);
+                // clearInterval(timer);
+                // timer = setInterval(() => {
+                //     if(oDiv.offsetLeft == -100){
+                //         clearInterval(timer);
+                //     }else{
+                //         oDiv.style.left = oDiv.offsetLeft - speed + "px";
+                //     }
+                // }, 30);
+            }
+        }
+    </script>  
+    <body>
+        <div id="div1">
+            <span id="span1">分享到</span>
+        </div>
+    </body>
+</html>

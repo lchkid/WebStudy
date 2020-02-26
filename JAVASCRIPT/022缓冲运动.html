@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <style>
+        * {margin: 0; padding: 0;}
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            left: 0;
+            top: 100px;
+        }
+        span {
+            width: 1px;
+            height: 600px;
+            background-color: grey;
+            position: absolute;
+            left: 600px;
+        }
+    </style>
+    <script>
+        var timer = null;
+        function move(distance){
+            var oDiv = document.getElementById("div1");
+            clearInterval(timer);
+            timer = setInterval(function(){
+                var speed = (distance - oDiv.offsetLeft) / 8;
+                /* speed因oDiv.offsetLeft的变化而变化
+                在靠近目的地的时候，速度<1但是系统最小只能识别1
+                所以用取整来使speed以1的值运动到距离0，最终speed变成0 */
+                speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                if(oDiv.offsetLeft == distance){
+                    clearInterval(timer);
+                }else{
+                    console.log(speed);
+                    oDiv.style.left = oDiv.offsetLeft + speed + "px"
+                }
+            }, 30)
+        }
+        window.onload = function(){
+            var oBtn = document.getElementById("btn1");
+            var oDiv = document.getElementById("div1");
+            oBtn.onclick = function(){
+                move(600);
+            }
+        }
+    </script>
+    <body>
+        <div id="div1"></div>
+        <button id="btn1">开始运动</button>
+        <span></span>
+    </body>
+</html>

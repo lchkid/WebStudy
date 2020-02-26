@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <style>
+        #img1 {opacity: .3; filter: alpha(opacity=30);}
+    </style>
+    <script>
+        var timer = null;
+        var alpha = 30;  //设置中间变量来取得兼容性有问题的css值
+        function move(o){
+            var oImg = document.getElementById("img1");
+            var speed = 2;
+            speed = o > alpha ? Math.abs(speed) : -Math.abs(speed);
+            clearInterval(timer);
+            timer = setInterval(() => {
+                if(alpha == o){
+                    clearInterval(timer);
+                }else{
+                    alpha += speed;
+                }
+                // console.log(alpha);
+                oImg.style.opacity = alpha / 100;
+                oImg.style.filter = `alpha(opacity=${alpha})`;
+            }, 30);
+        }
+
+        window.onload = function(){
+            var oImg = document.getElementById("img1");
+            oImg.onmouseover = function(){
+                move(100);
+            }
+            oImg.onmouseout = function(){
+                move(30);
+            }
+        }
+    </script>
+    <body>
+        <img src="img/9d0d09ably1gc7d2wx2wkj20go0dcmx4.jpg" title="鼠标移入减少透明度" id="img1">
+    </body>
+</html>
