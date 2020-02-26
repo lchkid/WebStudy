@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+        }
+    </style>
+    <script src="tool.js"></script>
+    <script>
+        window.onload = function(){
+            oDiv = document.getElementById("div1");
+            //鼠标按下触发
+            oDiv.onmousedown = function(ev){
+                let e1 = ev || window.event;
+                //获取鼠标与窗口的相对距离；
+                let xx = e1.clientX - oDiv.offsetLeft;
+                let yy = e1.clientY - oDiv.offsetTop;
+                //鼠标移动触发
+                document.onmousemove = function(ev){
+                    let e2 = ev || window.event;
+                    // console.log(getComputedStyle(oDiv)["width"]);  //当前物体实际宽度，通过getComputedStyle(node)[attr]获得；(IE用node.currentStyle.attr)
+                    // console.log(oDiv.offsetWidth);  //当前物体实际宽度，通过node.offsetWidth获得；
+                    if(e2.clientX - xx < 0){
+                        oDiv.style.left = 0;
+                    }else if(e2.clientX - xx > getWith() - parseInt(getStyle(oDiv, "width"))){
+                        oDiv.style.left = getWith() - parseInt(getStyle(oDiv, "width")) + "px";
+                    }else{
+                        oDiv.style.left = e2.clientX - xx + "px";
+                    }
+                    if(e2.clientY - yy < 0){
+                        oDiv.style.top = 0
+                    }else if(e2.clientY - yy > getHeight() - oDiv.offsetHeight){
+                        oDiv.style.top = getHeight() - oDiv.offsetHeight + "px";
+                    }else{
+                        oDiv.style.top = e2.clientY - yy + "px";
+                    }
+                }
+            }
+            //鼠标松开触发
+            document.onmouseup = function(){
+                document.onmousemove = null;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="div1"></div>
+</body>
+</html>

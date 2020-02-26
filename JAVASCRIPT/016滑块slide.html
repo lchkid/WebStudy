@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <style>
+        #slide {width: 800px; height: 30px; border: 1px solid #000000; margin: 200px auto; position: relative;}
+        #fill {width: 0; height: 30px; background-color: orange; position: absolute; top: 0; left: 0;}
+        #block {width: 30px; height: 30px; background-color: blue; position: absolute; top: 0; left: 0;}
+    </style>
+    <script src="tool.js"></script>
+    <script>
+        window.onload = function(){
+            var eSlide = document.getElementById("slide");
+            var eFill = document.getElementById("fill");
+            var eBlock = document.getElementById("block");
+            //取出本地存储
+            if(localStorage.len){
+                eBlock.style.left = localStorage.len + "px";
+                eFill.style.width = localStorage.len + "px";
+            }
+            eBlock.onmousedown = function(ev){
+                var e1 = ev || window.event;
+                var xx = e1.clientX - eBlock.offsetLeft;
+                document.onmousemove = function(ev){
+                    var e2 = ev || window.event;
+                    var l = e2.clientX - xx;
+                    if(l < 0){
+                        l = 0;
+                    }else if(l > parseInt(getStyle(eSlide, "width")) - eBlock.offsetWidth){
+                        l = parseInt(getStyle(eSlide, "width")) - eBlock.offsetWidth;
+                    }
+                    eBlock.style.left = l + "px";
+                    eFill.style.width = l + "px";
+                    //存入本地存储
+                    if(window.localStorage){
+                        localStorage.setItem("len", l);
+                    }else{
+                        alert("浏览器不支持本地存储！");
+                    }
+                }   
+            }
+            document.onmouseup = function(){
+                document.onmousemove = null;
+            }   
+        }
+    </script>
+    <body>
+        <div id="slide">
+            <div id="fill"></div>
+            <div id="block"></div>
+        </div>
+    </body>
+</html>

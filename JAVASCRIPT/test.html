@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {margin: 0; padding: 0;}
+    </style>
+    <script src="tool.js"></script>
+    <script>
+        window.onload = function(){
+            var a = document.getElementById("month");
+            console.log(typeof a.value);
+            switch("1"){
+                case 1:
+                    alert("yes");
+                    break;
+                default:
+                    alert("hh");
+                    break;
+            }
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="month">
+</body>
+</html>

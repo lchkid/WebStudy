@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {margin: 0; padding: 0;}
+        #div1 {
+            background-color: grey;
+            display: none;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+        }
+        #div1 button {
+            height: 30px;
+            font-size: 18px;
+            padding: 0 10px;
+        }
+        #del {
+            position: absolute;
+            right: 0;
+        }
+        #txt {
+            display: block;
+        }
+        #div2 {
+            height: 500px;
+            width: 300px;
+            position: absolute;
+            left: 600px;
+            top: 100px;
+            border: 1px solid #000000;
+        }
+        #div2 div {
+            height: 20px;
+            border-bottom: 1px dashed #000000;
+            position: relative;
+        }
+        #div2 button {
+            position: absolute;
+            right: 0;
+        }
+    </style>
+    <script src="tool.js"></script>
+    <script>
+        window.onload = function(){
+            //点击发布出现文本框
+            $("btn1").onclick = function(){
+                $("div1").style.display = "block";
+            }
+            //文本框可拖曳
+            drag("div1");
+            //点击提交将文本框内容传到div2
+            $("sub").onclick = function(){
+                //判断文本框非空
+                if(!$("txt").value){
+                    alert("请输入内容！");
+                }else{
+                    var nDiv = document.createElement("div");  //创建新的div节点
+                    nDiv.style.backgroundColor = randomColor();
+                    var nTxt = document.createTextNode($("txt").value);  //获取txt文本框内容并创建新的文本节点
+                    // nDiv.innerHTML = $("txt").value;  //也可以赋值，但不建议，因为有缺点：传入文本，若文本框有html标签会直接显示
+                    var nBtn = document.createElement("button");  //创建clear按钮
+                    nBtn.innerHTML = "x";  //固定文本，用赋值即可
+                    nDiv.appendChild(nTxt);
+                    nDiv.appendChild(nBtn);
+                    $("div2").appendChild(nDiv);
+                    // //点击x清除div2中本条内容
+                    // nBtn.onclick = function(){
+                    //     $("div2").removeChild(this.parentNode);
+                    // }
+                }
+            }
+            //按ctrl+enter将文本框内容传到div2
+            $("txt").onkeydown = function(ev){
+                var e = ev || window.event;
+                var w = e.keyCode || e.which;
+                if(e.ctrlKey && w == 13){
+                    $("sub").onclick();
+                }
+            }
+            //点击x清楚div1中文本内容
+            $("del").onclick = function(){
+                $("txt").value = "";
+            }
+            //点击x清除div2中本条内容(通过事件委托避免多次添加onclick函数)
+            $("div2").onclick = function(ev){
+                var e = ev || window.event;
+                var t = e.target || window.event.srcElement;
+                if(t.nodeName.toLowerCase() == "button"){
+                    $("div2").removeChild(t.parentNode);
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <button id="btn1">发布</button>
+    <div id="div1">
+        <div>
+            <button id="sub">提交</button>
+            <button id="del">X</button>
+        </div>
+        <div>
+            <textarea id="txt" cols="30" rows="10"></textarea>
+        </div>
+    </div>
+    <div id="div2"></div>
+</body>
+</html>

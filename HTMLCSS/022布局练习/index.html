@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			#header {
+				background-color: red;
+				height: 50px;
+			}
+			#header .head {
+				height: 50px;
+				width: 1005px;
+				background-color: #b30000;
+				margin: auto;
+			}
+			#banner {
+				height: 500px;
+				background-color: aliceblue;
+			}
+			#category {
+				/* height: 200px; */
+				width: 1005px;
+				background-color: aquamarine;
+				margin: auto;
+				overflow: auto;
+			}
+			#category .item {
+				width: 125px;
+				height: 165px;
+				padding: 10px 25px 25px 25px;
+				float: left;
+				border-right: 1px dashed black;
+			}
+			#category .item.first {
+				padding-left: 0;
+			}
+			#category .item.last {
+				padding-right: 0;
+				border-right: none;
+			}
+			#case {
+				/* height: 500px; */
+				overflow: auto;
+				background-color: #d0d0d0;
+			}
+			#case .title {
+				width: 1005px;
+				margin: auto;
+				font-size: 45px;
+				padding: 20px 0 10px;
+			}
+			#case .item-wrapper {
+				width: 1000px;
+				overflow: auto;
+				margin: auto;
+			}
+			#case .item-wrapper .item {
+				float: left;
+				height: 240px;
+				width: 320px;
+				background-color: #008000;
+			}
+			#case .item-wrapper .item.mid {
+				margin: 0 20px;
+			}
+			#case p {
+				height: 50px;
+				width: 1005px;
+				margin-left: auto;
+				margin-right: auto;
+				margin-top: 15px;
+				margin-bottom: 10px;
+				line-height: 50px;
+				font-size: 30px;
+				text-align: center;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="header">
+			<div class="head"></div>
+		</div>
+		<div id="banner">
+			<img src="">
+		</div>
+		<div id="category">
+			<div class="item first"></div>
+			<div class="item"></div>
+			<div class="item"></div>
+			<div class="item"></div>
+			<div class="item"></div>
+			<div class="item last"></div>
+		</div>
+		<div id="case">
+			<div class="title">Case案例</div>
+			<div class="item-wrapper">
+				<div class="item"></div>
+				<div class="item mid"></div>
+				<div class="item"></div>
+			</div>
+			<p>查看更多+</p>
+		</div>
+	</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {margin: 0; padding: 0;}
+        .div1 {
+            background-color: #eff8ff;
+            width: 400px;
+            /* height: 400px; */
+            margin: 200px auto;
+            text-align: center;
+            padding-bottom: 50px;
+        }
+        input {
+            width: 300px;
+            height: 50px;
+            margin: 50px;
+            font-size: 24px;
+            line-height: 50px;
+            margin-bottom: 10px;
+        }
+        #tips {
+            display: block;
+            font-size: 14px;
+            width: 300px;
+            margin: 0 auto;
+        }
+        #pow {
+            width: 250px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        .pwd-power {
+            width: 70px;
+            height: 30px;
+            font-size: 15px;
+            color: #ffffff;
+            line-height: 30px;
+            text-align: center;
+            background-color: grey;
+            float: left;
+            margin-left: 10px;
+        }
+    </style>
+    <script src="tool.js"></script>
+    <script>
+        window.onload = function(){
+            var eUname = document.getElementById("uname");
+            var ePword = document.getElementById("pword");
+            var eTips = document.getElementById("tips");
+            var ePow = document.getElementById("pow");
+            eUname.onblur = function(){
+                var str = eUname.value;
+                if(str.length < 6 || str.length > 18){
+                    eTips.innerHTML = "！长度应为6~18个字符";
+                    eTips.style.color = "red";
+                }else if(!/^[a-z]/i.test(str[0])){  //!(字符串首位是字母) == true表示首位非字母
+                    eTips.innerHTML = "！邮箱地址需以字母开头";
+                    eTips.style.color = "red";
+                }else if(/\W/.test(str)){  //字符串中有非字母、数字、下划线
+                    eTips.innerHTML = "！只能输入字母、数字、下划线";
+                    eTips.style.color = "red";
+                }else{
+                    eTips.innerHTML = "！恭喜，该邮件地址可以注册";
+                    eTips.style.color = "green";
+                }
+            }
+            ePword.onkeyup = function(){
+                
+                console.log(ePword.value);
+                var pwd = ePword.value;
+                var divs = ePow.getElementsByClassName("pwd-power");
+                for(var i = 0; i < divs.length; i++){
+                    divs[i].style.backgroundColor = "grey";
+                }
+                if(pwd.length >= 6){
+                    //弱密码：全数字/全小写字母/全大写字母
+                    if(/^[0-9]+$/.test(pwd) || /^[a-z]+$/.test(pwd) || /^[A-Z]+$/.test(pwd)){
+                        divs[0].style.backgroundColor = "orange";
+                    //强密码：有数字大小写字母和特殊字符
+                    }else if(/\d/.test(pwd) && /[a-z]/.test(pwd) && /[A-Z]/.test(pwd) && /(!|@|#|\$|%|\^|&|\*|\.)/.test(pwd)){
+                        divs[2].style.backgroundColor = "orange";
+                    }else{
+                        divs[1].style.backgroundColor = "orange";
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="div1">
+        <input type="text" placeholder="用户名" id="uname">
+        <span id="tips">6~18个字符，可使用字母、数字、下划线，需以字母开头。</span>
+        <input type="password" placeholder="密码" id="pword">
+        <div id="pow">
+            <div class="pwd-power">弱</div>
+            <div class="pwd-power">中</div>
+            <div class="pwd-power">强</div>
+        </div>
+    </div>
+</body>
+</html>

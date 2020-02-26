@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {margin: 0;padding: 0;}
+			.box {
+				width: 600px;
+				height:600px;
+				border:1px solid red;
+				margin: 30px auto;
+				perspective: 1200px;
+			}
+			.box ul {
+				width: 300px;
+				height: 300px;
+				border: 1px solid #00FFFF;
+				margin: 150px auto;
+				position: relative;
+				transform-style: preserve-3d;
+				animation: rotatebox 3s linear infinite;
+				transform-origin: center center 150px;
+			}
+			.box ul li {
+				width: 300px;
+				height: 300px;
+				list-style-type: none;
+				text-align: center;
+				line-height: 300px;
+				position: absolute;
+			}
+			.box ul li:nth-of-type(1) {background: #FF0000;opacity: .5;}
+			.box ul li:nth-of-type(2) {background: #00aaff;opacity: .5;transform: rotateY(90deg);transform-origin: right;}
+			.box ul li:nth-of-type(3) {background: #ffaa00;opacity: .5;transform: rotateY(-90deg);transform-origin: left;}
+			.box ul li:nth-of-type(4) {background: #55ff7f;opacity: .5;transform: rotateX(90deg);transform-origin: top;}
+			.box ul li:nth-of-type(5) {background: #55007f;opacity: .5;transform: rotateX(-90deg);transform-origin: bottom;}
+			.box ul li:nth-of-type(6) {background: #ffaaff;opacity: .5;transform: translateZ(300px);}
+			@keyframes rotatebox {
+				from {transform: rotateY(0deg);}
+				to {transform: rotateY(360deg);}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<ul>
+				<li>1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+				<li>6</li>
+			</ul>
+		</div>
+	</body>
+</html>

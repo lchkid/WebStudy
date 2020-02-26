@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* {
+				margin: 0;
+				padding: 0;
+			}
+			input{
+				border: 0;
+				outline: none;
+				background: none;
+				float: left;
+			}
+			#back{
+				height: 300px;
+				background-color: #666666;
+				padding-top: 200px;
+			}
+			.searchbox{
+				width: 546px;
+				height: 32px;
+				border: 2px solid #e2231a;
+				margin: 0 auto;
+				/* overflow: hidden; */
+			}
+			.searchbox input.s_text{
+				width: 468px;
+				height: 32px;
+				padding-left: 20px;
+				background-color: #ffffff;
+			}
+			/* .searchbox a{
+				float: right;
+				cursor: pointer;
+			} */
+			.searchbox a input.s_button{
+				width: 58px;
+				height: 32px;
+				cursor: pointer;
+				background-color: #e2231a;
+				background: url(img/search.png) no-repeat 50% #e1251b;
+			}			
+		</style>
+	</head>
+	<body>
+		<div id="back">
+			<div class="searchbox">
+				<input class="s_text" type="text" value="hotwords">
+				<a href="#"><input class="s_button" type="button"></a>
+			</div>
+		</div>
+		
+	</body>
+</html>

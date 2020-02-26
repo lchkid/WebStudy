@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {margin: 0; padding: 0;}
+        #tab1 tr td {
+            height: 100px;
+            width: 200px;
+            border: 1px solid grey;
+        }
+    </style>
+    <script src="tool.js"></script>
+    <script>
+        window.onload = function(){
+            var eRow = document.getElementById("row");
+            var eCol = document.getElementById("col");
+            var eBtn = document.getElementById("btn");
+            var eTab = document.getElementById("tab1");
+            eBtn.onclick = function(){
+                eTab.innerHTML = "";
+                if(eRow.value != "" && eCol.value != ""){
+                    for(var i = 0; i < eRow.value; i++){
+                        var nRow = document.createElement("tr");
+                        for(var j = 0; j < eCol.value; j++){
+                            var nCol = document.createElement("td");
+                            nRow.appendChild(nCol);
+                        }
+                        var nTab = document.createElement("td");
+                        nTab.innerHTML = "<button>delete</button>";
+                        nRow.appendChild(nTab);
+                        eTab.appendChild(nRow);
+                    }
+                }else{
+                    alert("请输入行列！");
+                }
+            }
+            //事件委托
+            eTab.onclick = function(ev){
+                var e = ev || window.event;
+                var t = e.target || window.event.target;
+                if(t.nodeName.toLowerCase() == "button"){
+                    eTab.removeChild(t.parentNode.parentNode);
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <input type="text" placeholder="行" id="row">
+    <input type="text" placeholder="列" id="col">
+    <button id="btn">生成</button>
+    <table id="tab1"></table>
+</body>
+</html>

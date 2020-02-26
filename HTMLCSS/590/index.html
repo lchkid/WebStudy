@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			* { margin: 0;padding: 0;}
+			.listbox {width: 500px; margin: 50px auto;}
+			.listbox .list a {
+				display: block;
+				width: 488px;
+				height: 35px;
+				text-decoration: none;
+				color: #424242;
+				background: linear-gradient(#cecece,#8f8f8f);
+				border-radius: 5px;
+				padding-left: 12px;
+				line-height: 35px;
+			}
+			.listbox .list {position: relative;}
+			.listbox .list span {
+				width: 0;
+				height: 0;
+				border: 5px solid transparent;
+				border-top-color: #FFFFFF;
+				position: absolute;
+				top: 15px;
+				right: 15px;
+			}
+			.listbox .list p {
+				margin: 5px 0;
+				padding: 0 10px;
+				height: 0;
+				overflow: auto;
+				transition: all 0.5s ease;
+			}
+			.listbox .list:target p{
+				height: 80px;
+			}
+			.listbox .list:target span {
+				border: 5px solid transparent;
+				border-left-color: #FFFFFF;
+				top: 13px;
+				right: 10px;
+			}
+			.listbox .list:target a,.listbox .list a:hover{
+				background: linear-gradient(#6bb2ff,#2288dd);
+				color: #FFFFFF;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="listbox">
+			<div class="list" id="Brand">
+				<a href="#Brand">Brand</a>
+				<span></span>
+				<p>
+					全新 SB Dunk High 又一次致敬NIKE SB滑板传奇人物 Paul Rodriguez。该鞋款从 Paul Rodriguez 墨西哥裔身份中汲取设计灵感，采用代表墨西哥的红色和绿色鸳鸯配色，从鞋舌到鞋垫都饰有保罗喜爱的另一项运动——拳击主题图案，彰显保罗对该项运动的热爱。用罗马数字书写的15代表保罗和Nike SB走过的15年历史，镶嵌宝石的冠军金腰带鞋带扣则让设计风格更加完整。
+				</p>
+			</div>
+			<div class="list" id="Promotion">
+				<a href="#Promotion">Promotion</a>
+				<span></span>
+				<p>
+					全新 SB Dunk High 又一次致敬NIKE SB滑板传奇人物 Paul Rodriguez。该鞋款从 Paul Rodriguez 墨西哥裔身份中汲取设计灵感，采用代表墨西哥的红色和绿色鸳鸯配色，从鞋舌到鞋垫都饰有保罗喜爱的另一项运动——拳击主题图案，彰显保罗对该项运动的热爱。用罗马数字书写的15代表保罗和Nike SB走过的15年历史，镶嵌宝石的冠军金腰带鞋带扣则让设计风格更加完整。
+				</p>
+			</div>
+			<div class="list" id="Event">
+				<a href="#Event">Event</a>
+				<span></span>
+				<p>
+					全新 SB Dunk High 又一次致敬NIKE SB滑板传奇人物 Paul Rodriguez。该鞋款从 Paul Rodriguez 墨西哥裔身份中汲取设计灵感，采用代表墨西哥的红色和绿色鸳鸯配色，从鞋舌到鞋垫都饰有保罗喜爱的另一项运动——拳击主题图案，彰显保罗对该项运动的热爱。用罗马数字书写的15代表保罗和Nike SB走过的15年历史，镶嵌宝石的冠军金腰带鞋带扣则让设计风格更加完整。
+				</p>
+			</div>
+		</div>
+	</body>
+</html>

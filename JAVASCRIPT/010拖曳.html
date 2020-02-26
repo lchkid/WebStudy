@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            oDiv = document.getElementById("div1");
+            //鼠标按下触发
+            oDiv.onmousedown = function(ev){
+                let e1 = ev || window.event;
+                //获取鼠标与窗口的相对距离；
+                let xx = e1.clientX - oDiv.offsetLeft;
+                let yy = e1.clientY - oDiv.offsetTop;
+                //鼠标移动触发
+                document.onmousemove = function(ev){
+                    let e2 = ev || window.event;
+                    oDiv.style.left = e2.clientX - xx + "px";
+                    oDiv.style.top = e2.clientY - yy + "px";
+                }
+            }
+            //鼠标松开触发
+            oDiv.onmouseup = function(){
+                document.onmousemove = null;
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="div1"></div>
+</body>
+</html>

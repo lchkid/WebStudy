@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {margin: 0; padding: 0;}
+        #div1 {
+            width: 300px;
+            height: 240px;
+            border: 1px solid #000000;
+            position: absolute;
+            top: 100px;
+            left: 100px;
+        }
+        #div1 img {
+            width: 100%;
+            height: 100%;
+        }
+        #mark {
+            width: 100px;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.6);
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+        #div2 {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000000;
+            position: absolute;
+            top: 100px;
+            left: 500px;
+            display: none;
+            overflow: hidden;
+        }
+        #div2 img {
+            width: 600px;
+            height: 480px;
+            position: absolute;
+            display: block;
+        }
+    </style>
+    <script src="tool.js"></script>
+    <script>
+        window.onload = function(){
+            var eDiv1 = document.getElementById("div1");
+            var eDiv2 = document.getElementById("div2");
+            var eMark = document.getElementById("mark");
+            eDiv1.onmouseover = function(){
+                eMark.style.display = "block";
+                eDiv2.style.display = "block";
+                eDiv1.onmousemove = function(ev){
+                    var e = ev || window.event;
+                    var xx = e.clientX - eDiv1.offsetLeft - eMark.offsetWidth / 2;
+                    var yy = e.clientY - eDiv1.offsetTop - eMark.offsetHeight / 2;
+                    if(xx < 0){
+                        xx = 0;
+                    //注意：不用eDiv1.offsetWidth获取width是因为div1有边框，offsetWidth会包含边框
+                    //      而mark没有边框所以可以用eMark.offsetWidth
+                    }else if(xx > parseInt(getStyle(eDiv1, "width")) - eMark.offsetWidth){
+                        xx = parseInt(getStyle(eDiv1, "width")) - eMark.offsetWidth;
+                    }
+                    if(yy < 0){
+                        yy = 0;
+                    }else if(yy > parseInt(getStyle(eDiv1, "height")) - eMark.offsetHeight){
+                        yy = parseInt(getStyle(eDiv1, "height")) - eMark.offsetHeight;
+                    }
+                    eMark.style.left = xx + "px";
+                    eMark.style.top = yy + "px";
+                    console.log(parseInt(getStyle(eDiv1, "width")) + ", " + parseInt(getStyle(eDiv1, "width")));
+                    eDiv2.getElementsByTagName("img")[0].style.left = xx * -2 + "px";
+                    eDiv2.getElementsByTagName("img")[0].style.top = yy * -2 + "px";
+                }
+            }
+            eDiv1.onmouseout = function(){
+                eMark.style.display = "none";
+                eDiv2.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="div1">
+        <div id="mark"></div>
+        <img src="img/9d0d09ably1gc7d2wx2wkj20go0dcmx4.jpg" alt="">        
+    </div>
+    <div id="div2">
+        <img src="img/9d0d09ably1gc7d2wx2wkj20go0dcmx4.jpg" alt="">
+    </div>
+</body>
+</html>

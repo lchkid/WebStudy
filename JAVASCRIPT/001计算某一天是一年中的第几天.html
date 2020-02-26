@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			var year = 2000;
+			var month = 5;
+			var day = 1;
+			switch(month){
+				case 1:
+				case 2:
+				case 9:
+				case 11:
+					if(year % 4 == 0 && year % 100 != 0 || year % 400 ==0){
+						alert("今天是" + year + "的第" + ((month - 1) * 30 + parseInt(month/2) + day) + "天");
+					}else{
+						alert("今天是" + year + "的第" + ((month - 1) * 30 + parseInt(month/2) - 1 + day) + "天");
+					}						
+					break;
+				case 3:
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+				case 8:
+				case 10:
+				case 12:
+					if(year % 4 == 0 && year % 100 != 0 || year % 400 ==0){
+						alert("今天是" + year + "的第" + ((month - 1) * 30 + parseInt(month/2) - 1 + day) + "天");
+					}else{
+						alert("今天是" + year + "的第" + ((month - 1) * 30 + parseInt(month/2) - 2 + day) + "天");
+					}						
+					break;
+			}
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

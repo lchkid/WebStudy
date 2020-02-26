@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div1 {
+            width: 600px;
+            height: 200px;
+            line-height: 200px;
+            font-size: 40px;
+            border: 1px solid #000000;
+            margin: 200px auto;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function nowTime(){
+            let d = new Date();
+            let year = d.getFullYear();
+            let month = num(d.getMonth() + 1);
+            let day = num(d.getDate());
+            let hour = num(d.getHours());
+            let minute = num(d.getMinutes());
+            let sec = num(d.getSeconds());
+            return year + "年" + month + "月" + day + "日 " + hour + ":" + minute + ":" + sec;
+        }
+
+        function num(n){
+            if(n <= 9){
+                return "0" + n;
+            }else{
+                return n;
+            }
+        }
+
+        setInterval(function(){
+            let oDay = document.getElementById("div1");
+            oDay.innerHTML = nowTime();
+        }, 1000);
+    </script>
+</head>
+<body>
+    <div id="div1">显示当前时间</div>
+</body>
+</html>
