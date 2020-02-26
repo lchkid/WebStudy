@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <style>
+        #div1 {
+            height: 100px;
+            width: 100px;
+            background-color: red;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    </style>
+    <script>
+        var timer = null;
+        function move(nTop) {
+            var oDiv = document.getElementById("div1");
+            clearInterval(timer);
+            timer = setInterval(function(){
+                var speed = (nTop - oDiv.offsetTop) / 8;
+                speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                if(oDiv.style.top == nTop){
+                    clearInterval(timer);
+                }else{
+                    oDiv.style.top = oDiv.offsetTop + speed + "px";
+                }
+            }, 30);
+        }
+
+        window.onload = function(){
+            var oDiv = document.getElementById("div1");
+            let oTop = document.documentElement.scrollTop || document.body.scrollTop;  //获取当前窗口滚动距离
+            let oHeight = document.documentElement.clientHeight || document.body.clientHeight;  //获取当前窗口可视高度
+            let nTop = parseInt(oTop + (oHeight - oDiv.offsetHeight) / 2);  //获取目标菜单离body的上边距
+            move(nTop);
+            window.onscroll = function(){
+                let oTop = document.documentElement.scrollTop || document.body.scrollTop;
+                let oHeight = document.documentElement.clientHeight || document.body.clientHeight;
+                let nTop = parseInt(oTop + (oHeight - oDiv.offsetHeight) / 2);
+                move(nTop);
+            }
+            window.onresize = function(){
+                let oTop = document.documentElement.scrollTop || document.body.scrollTop;
+                let oHeight = document.documentElement.clientHeight || document.body.clientHeight;
+                let nTop = parseInt(oTop + (oHeight - oDiv.offsetHeight) / 2);
+                move(nTop);
+            }
+        }
+    </script>
+    <body style="height: 3000px;">
+        <div id="div1"></div>
+    </body>
+</html>
