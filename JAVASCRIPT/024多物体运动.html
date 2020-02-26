@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <style>
+        div {
+            width: 100px;
+            height: 50px;
+            background-color: red;
+            margin: 50px;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var oDivs = document.getElementsByTagName("div");
+            for(let i = 0; i < oDivs.length; i++){
+                oDivs[i].onmouseover = function(){
+                    change(this, 500);
+                }
+                oDivs[i].onmouseout = function(){
+                    change(this, 100);
+                }
+            }
+        }
+
+        // var timer = null;
+        function change(ele, nWith){
+            clearInterval(ele.timer);
+            // console.log(ele.timer);
+            ele.timer = setInterval(() => {
+                var speed = (nWith - ele.offsetWidth) / 8;
+                speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                if(ele.offsetWidth == nWith){
+                    clearInterval(ele.timer);
+                }else{
+                    ele.style.width = ele.offsetWidth + speed + "px"; 
+                }
+            }, 30);
+        }
+    </script>
+    <body>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <style>
+        div {
+            width: 100px;
+            height: 50px;
+            background-color: red;
+            margin: 50px;
+            opacity: .3;
+            filter: alpha(opacity=30);
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            var oDivs = document.getElementsByTagName("div");
+            for(let i = 0; i < oDivs.length; i++){
+                oDivs[i].alpha = 30;  //给每个div赋中间值 .alpha=30
+                oDivs[i].onmouseover = function(){
+                    change(this, 100);
+                }
+                oDivs[i].onmouseout = function(){
+                    change(this, 30);
+                }
+            }
+        }
+
+        // var timer = null;  不可以共用计时器
+        // var alpha = 30;  不可以共用属性
+        function change(ele, nOpacity){
+            clearInterval(ele.timer);
+            ele.timer = setInterval(function(){
+                var speed = (nOpacity - ele.alpha) / 30;
+                speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+                if(ele.alpha == nOpacity){
+                    clearInterval(ele.timer);
+                }else{
+                    ele.alpha += speed;
+                }
+                console.log(ele.alpha);
+                // console.log(speed);
+                ele.style.opacity = ele.alpha / 100;
+                ele.style.filter = `alpha(opacity=${ele.alpha})`;
+            }, 30);
+        }
+    </script>
+    <body>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </body>
+</html>
