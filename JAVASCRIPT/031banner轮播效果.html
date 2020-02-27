@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        #div1 #ul1 li {
+            height: 100px;
+            width: 100px;
+            background-color: hotpink;
+            margin: 10px;
+            float: left;
+        }
+        #div1 #ul1 {
+            width: 960px;
+            height: 120px;
+            position: absolute; 
+        }
+        #div1 {
+            width: 480px;
+            height: 120px;
+            border: 1px solid #000000;
+            margin: 200px auto;
+            overflow: hidden;
+            position: relative;
+        }
+    </style>
+    <script src="js/change.js"></script>
+    <script>
+        window.onload = function(){
+            var oUl = document.getElementById("ul1");
+            setInterval(function(){
+                // var l = oUl.offsetLeft - 120;
+                change(oUl, {
+                    left: oUl.offsetLeft - 120 + "px"
+                }, function(){
+                    if(oUl.offsetLeft <= -oUl.offsetWidth / 2){
+                        oUl.style.left = 0;
+                    }
+                });
+            }, 2000);
+        }
+    </script>
+    <body>
+        <div id="div1">
+            <ul id="ul1">
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+            </ul>
+        </div>
+    </body>
+</html>

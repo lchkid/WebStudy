@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <style>
+        #div1 {
+            width: 10px;
+            height: 10px;
+            background-color: red;
+            position: absolute;
+            z-index: 100;
+        }
+    </style>
+    <script>
+        window.onload = function(){
+            let oDiv = document.getElementById("div1");
+            circle(oDiv, 400, 400, 100);
+        }
+
+        function circle(node, x, y, r){
+            var d = 0;
+            setInterval(function(){
+                d++;
+                let rad = d * Math.PI / 180;  //转换为弧度
+                node.style.left = x + r * Math.sin(rad) + "px";
+                node.style.top = y - r * Math.cos(rad) + "px";
+                //显示轨迹
+                let a = document.createElement("div");
+                a.style.width = "5px";
+                a.style.height = "5px";
+                a.style.backgroundColor = "orange";
+                a.style.position = "absolute";
+                a.style.left = node.style.left;
+                a.style.top = node.style.top;
+                document.body.appendChild(a);
+            }, 30);
+        }
+    </script>
+    <body>
+        <div id="div1"></div>
+    </body>
+</html>

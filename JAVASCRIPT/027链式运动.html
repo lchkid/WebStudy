@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    div {
+        width: 100px;
+        height: 50px;
+        background-color: red;
+        margin: 50px;
+    }
+    div:nth-child(1) {
+        opacity: .3;
+        filter: alpha(opacity=30);
+    }
+</style>                   
+<script>
+    window.onload = function(){
+        var oDivs = document.getElementsByTagName("div");
+        oDivs[0].onmouseover = function(){
+            change(this, "width", 300, function(){  //传入匿名函数(实参)
+                // console.log(this);  //匿名函数不属于任何元素，this指向window
+                change(this, "height", 100, function(){
+                    change(this, "opacity", 100);
+                });
+            });
+        }
+        oDivs[0].onmouseout = function(){
+            change(this, "opacity", 30, function(){  //传入匿名函数(实参)
+                // console.log(this);  //匿名函数不属于任何元素，this指向window
+                change(this, "height", 50, function(){
+                    change(this, "width", 100);
+                });
+            });
+        }
+    }
+
+    function change(node, attr, nTarget, complete){  //把函数当参数传入(形参)
+        clearInterval(node.timer);
+        node.timer = setInterval(() => {
+            if(attr == "opacity"){
+                var oCur = getStyle(node, attr) * 100;
+            }else{
+                var oCur = parseInt(getStyle(node, attr));
+            }
+            let speed = (nTarget - oCur) / 8;
+            speed = speed > 0 ? Math.ceil(speed) : Math.floor(speed);
+            if(oCur == nTarget){
+                clearInterval(node.timer);
+                //console.log("over");  上一次运动结束的地方
+                if(complete){  //判断参数是否存在
+                    complete.call(node);  //回调函数 并强制将this指向为当前element
+                }  
+            }else{
+                if(attr == "opacity"){
+                    oCur += speed;
+                    node.style[attr] = oCur / 100;  //opacity值是小数
+                    node.style.filter = `alpha(opacity=${oCur})`;
+                }else{
+                    node.style[attr] = oCur + speed + "px";
+                }
+            }
+        }, 30);
+    }
+
+    function getStyle(node, attr){
+        if(node.currentStyle){
+            return node.currentStyle[attr];
+        }else{
+            return getComputedStyle(node)[attr];
+        }
+    }
+</script>  
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div>text</div>
+    <div></div>
+</body>
+</html>

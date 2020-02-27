@@ -26,7 +26,7 @@ function getHeight(){
     return document.documentElement.clientHeight ? document.documentElement.clientHeight : document.body.clientHeight;
 }
 
-//可拖曳
+//可拖曳(面向过程)
 function drag(node){
     //鼠标按下触发
     $(node).onmousedown = function(ev){

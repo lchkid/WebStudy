@@ -1,3 +1,4 @@
+// 构造原型链
 // function Drag(id){
 //     this.eDiv = document.getElementById(id);
 //     this.eDiv.onmousedown = this.dragDown.bind(this);
@@ -21,6 +22,7 @@
 //     document.onmousemove = null;
 // }
 
+//ES6 class
 class Drag{
     constructor(id){
         this.eDiv = document.getElementById(id);

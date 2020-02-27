@@ -1,3 +1,4 @@
+// 构造原型链
 // function LimitDrag(id){
 //     Drag.call(this, id);
 // }
@@ -26,6 +27,7 @@
 //     this.eDiv.style.top = t + "px";
 // }
 
+//ES6 class
 class LimitDrag extends Drag{
     constructor(id){
         super(id);
