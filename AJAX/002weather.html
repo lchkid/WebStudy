@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <link rel="stylesheet" href="css/bootstrap-4.4.1-dist/bootstrap.min.css">
+    <script>
+        function weather(data){
+            let oTbody = document.getElementById("tb");
+            let oInfo = document.getElementById("info");
+            data.pm25 = data.pm25 ? data.pm25 : `暂无`;
+            oInfo.innerHTML = `城市：${data.city}<br>PM2.5：${data.pm25}`;  
+            let arrWeather = data.weather;
+            // console.log(arrWeather[0]);
+            let str = ``;
+            for(let i = 0; i < arrWeather.length; i++){
+                str += `<tr><td>${arrWeather[i].date}</td><td>${arrWeather[i].weather}</td><td>${arrWeather[i].wind}</td><td>${arrWeather[i].temp}</td></tr>`
+            }
+            oTbody.innerHTML = str;         
+        }
+
+        window.onload = function(){
+            let oBtn = document.getElementById("submit");
+            let oInput = document.getElementById("city");
+            oBtn.onclick = function(){
+                if(oInput.value){
+                    let nScript = document.createElement("script");
+                    let url = `https://api.asilu.com/weather/?city=${oInput.value}&callback=weather`;
+                    nScript.setAttribute("src", url);
+                    document.head.appendChild(nScript);
+                }else{
+                    alert("请输入城市名");
+                }
+            }
+            //输入框按回车查询
+            oInput.onkeydown = function(ev){
+                let e = ev || window.event;
+                let w = e.keyCode || e.which;
+                // console.log(w);
+                if(w == 13){
+                    let nScript = document.createElement("script");
+                    let url = `https://api.asilu.com/weather/?city=${oInput.value}&callback=weather`;
+                    nScript.setAttribute("src", url);
+                    document.head.appendChild(nScript);
+                }
+            }
+        }
+    </script>
+    <body>
+        <div class="container">
+            <div class="card">
+                <div class="card-header bg-success text-white text-center">
+                    <h1>查询城市天气</h1>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label id="info" for="city">城市</label>
+                        <input id="city" type="text" name="city" class="form-control">  
+                        <br>
+                        <button id="submit" class="btn btn-success form-control">查询</button>
+                        <br>
+                        <br>
+                        <table class="table table-bordered table-hover table-striped text-center">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>日期</th>
+                                    <th>天气</th>
+                                    <th>风向</th>
+                                    <th>温度</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tb"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer text-center">&copy api.asilu.com</div>
+            </div>
+        </div>
+    </body>
+</html>

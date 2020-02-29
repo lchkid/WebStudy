@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<link rel="stylesheet" href="css/bootstrap-4.4.1-dist/bootstrap.min.css">
+<script src="js/ajax.js"></script>
+<script>
+    window.onload = function(){
+        var oBtn = document.getElementById("btn");
+        var oTb = document.getElementById("tb");
+        oBtn.onclick = function(){
+            $ajax({
+                method: "get",
+                url: "hot.json",  //v2ex api不支持jsonp故暂时用json文件代替
+                success: function(result){
+                    // console.log(result);
+                    var arr = JSON.parse(result);
+                    var str = ``;
+                    for(let i = 0; i < arr.length; i++){
+                        str += `<tr>
+                        <td>${i + 1}</td>
+                        <td>${arr[i]["title"]}</td>
+                        <td>${arr[i].member.username}</td>
+                        <td>${arr[i].created}</td>
+                        <td>${arr[i].replies}</td>
+                        <td>${arr[i].last_touched}</td>
+                    </tr>`;
+                    }
+                    oTb.innerHTML = str;
+                },
+                error: function(msg){
+                    alert(msg);
+                }
+            });
+        }
+    }
+</script>
+<body>
+    <div class="container">
+        <div class="card text-center">
+            <div class="card-header h1">获取v2ex最热主题Top9</div>
+            <div class="card-body">
+                <button id="btn" class="btn btn-danger">点击获取</button>
+                <hr class="my-3">
+                <table class="table table-bordered table-responsive-xl table-hover">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>热门排序</th>
+                            <th>主题标题</th> <!-- json[i][title] -->
+                            <th>主题作者</th> <!-- json[i][member][username] -->
+                            <th>发布时间</th> <!-- json[i][created] -->
+                            <th>回复数量</th> <!-- json[i][replies] -->
+                            <th>最后回复</th> <!-- json[i][last_touched] -->
+                        </tr>
+                    </thead>
+                    <tbody id="tb">
+                        <!-- <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr> -->
+                    </tbody>
+                </table></div>
+            <div class="card-footer">
+                code by lchkid
+            </div>
+        </div>
+    </div>
+</body>
+</html>

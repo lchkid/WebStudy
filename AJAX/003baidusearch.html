@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+        div {
+            width: 300px;
+            margin: 200px auto;
+        }
+        #txt {
+            width: 288px;
+            height: 38px;
+            border: 1px orange solid;
+            font-size: 18px;
+            line-height: 38px;
+            padding-left: 10px;
+        }
+        #txt:focus{
+            outline-style: none;
+        }
+        ul{
+            display: none;
+            border: 1px orange solid;
+        }
+        ul li a{
+            display: block;
+            height: 30px;
+            font-size: 16px;
+            color: #000000;
+            line-height: 30px;
+            padding-left: 10px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow:ellipse;
+        }
+        #ul1 li:hover a{
+            color: white;
+            background-color: orange;
+        }
+    </style>
+    <script>
+        function search(data){
+            document.head.removeChild(document.head.lastElementChild);
+            let oUl = document.getElementById("ul1");
+            oUl.innerHTML = "";
+            let arrSearch = data.s;
+            for(let i = 0; i < arrSearch.length; i++){
+                let nLi = document.createElement("li");
+                let nA = document.createElement("a");
+                nA.innerHTML = arrSearch[i];
+                nA.href = "https://www.baidu.com/s?wd=" + arrSearch[i];
+                nA.target = "_blank";
+                oUl.style.display = "block";
+                nLi.appendChild(nA);
+                oUl.appendChild(nLi);
+            }
+        }
+
+        window.onload = function(){
+            let oTxt = document.getElementById("txt");
+            oTxt.onkeyup = function(){
+                // console.log(oTxt.value);
+                if(oTxt.value){
+                    let nScript = document.createElement("script");
+                    nScript.src = `http://suggestion.baidu.com/su?wd=${oTxt.value}&cb=search`;
+                    document.head.appendChild(nScript);
+                }
+            }
+            oTxt.onkeydown = function(ev){
+                let e = ev || window.event;
+                let w = e.keyCode || e.which;
+                if(oTxt.value && w == 13){
+                    window.location.href = `https://www.baidu.com/s?wd=${oTxt.value}`;
+                }
+            }
+        }
+    </script>
+    <body>
+        <div>
+            <input id="txt" type="text">
+            <ul id="ul1"></ul>
+        </div>
+    </body>
+</html>
