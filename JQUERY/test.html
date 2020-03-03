@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <style>
+       
+    </style>
+    <script>
+        $(function(){
+            $("button").eq(0).click(function(){
+                $.cookie("test", "test");
+            })
+            $("button").eq(1).click(function(){
+                // $.cookie("test", null);  //没删
+                // $.cookie("test", "");  //删了
+                $.removeCookie("test") //真·删了
+            })
+            $("button").eq(2).click(function(){
+                let cookieStr = $.cookie("test");
+                if(!cookieStr){
+                    alert("删了");
+                }else{
+                    alert("没删");
+                }
+            })
+        })
+    </script>
+    <body>
+        <button>新建cookie</button>
+        <button>删除cookie</button>
+        <button>cookie删除了吗</button>
+    </body>
+</html>

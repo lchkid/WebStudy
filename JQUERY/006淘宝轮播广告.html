@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+            }
+            img {
+                display: block;
+            }
+
+            #ad {
+                width: 520px;
+                height: 280px;
+                border: 1px solid #000000;
+                margin: 200px auto;
+                position: relative;
+                font-size: 0;
+                overflow: hidden;
+            }
+            #ad ol {
+                position: absolute;
+                background-color: rgba(255, 255, 255, .3);
+                border-radius: 10px;
+                height: 14px;
+                bottom: 15px;
+                left: 50%;
+                margin-left: -35px;
+                z-index: 100;
+            }
+            #ad ol li{
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background-color: #ffffff;
+                margin: 3px;
+                cursor: pointer;
+            }
+            #ad ol li.active{
+                background-color: #ff5000;
+            }
+            #ad ul {
+                width: 3120px;
+                height: 280px;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+            #ad ul li {
+                width: 520px;
+                height: 280px;
+                float: left;
+            }
+            #ad ul li img{
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+        <script src="js/jquery-1.12.4.min.js"></script>
+        <script>
+            $(function(){
+                let oBtns = $("ol li");
+                let timer = null;
+                let counter = 0;
+                //定时器，自动轮播
+                timer = setInterval(() => {
+                    counter++;
+                    autoMove();
+                }, 2000);
+                //鼠标移入停止定时器移出继续定时器
+                $("#ad").mouseenter(function(){
+                    clearInterval(timer);
+                }).mouseleave(function(){
+                    timer = setInterval(() => {
+                        counter++;
+                        autoMove();
+                }, 2000);
+                })
+                //鼠标点击切换图片
+                oBtns.click(function(){
+                    counter = $(this).index();
+                    autoMove();
+                })
+                //轮播函数
+                function autoMove(){
+                    if(counter == 5){
+                        $(oBtns).attr("class", "").eq(0).attr("class", "active")
+                    }else{
+                        $(oBtns).attr("class", "").eq(counter).attr("class", "active");
+                    }
+                    $("ul").animate({
+                        left: - counter * 520
+                    }, 500, function(){
+                        if(counter == 5){
+                            counter = 0;
+                            $("ul").css("left", 0);
+                        }
+                    });
+                }
+            })
+        </script>
+    </head>
+    <body>
+        <div id="ad">
+            <ol>
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ol>
+            <ul>
+                <li><a href="#"><img src="img/tb1.jpg" alt=""></a></li>
+                <li><a href="#"><img src="img/tb2.jpg" alt=""></a></li>
+                <li><a href="#"><img src="img/tb3.jpg" alt=""></a></li>
+                <li><a href="#"><img src="img/tb4.jpg" alt=""></a></li>
+                <li><a href="#"><img src="img/tb5.jpg" alt=""></a></li>
+                <li><a href="#"><img src="img/tb1.jpg" alt=""></a></li>
+            </ul>
+        </div>
+    </body>
+</html>

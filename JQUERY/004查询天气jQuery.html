@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="css/bootstrap-4.4.1-dist/bootstrap.min.css">
+        <script src="js/jquery-1.12.4.min.js"></script>
+        <script>
+            $(function(){
+                $("#submit").click(function(){
+                    if($("#city").val()){
+                        $.ajax({
+                            type: "get",
+                            url: "https://api.asilu.com/weather/",
+                            data: {
+                                city: $("#city").val()
+                            },
+                            dataType: "jsonp",
+                            success: function(data){
+                                console.log(data);
+                                data.pm25 = data.pm25 ? data.pm25 : "暂无";
+                                $("#info").html(`城市：${data.city}<br>PM25：${data.pm25}`);
+                                let arr = data.weather;
+                                let str = ``;
+                                for(let i = 0; i < arr.length; i++){
+                                    str += `<tr><td>${arr[i].date}</td><td>${arr[i].weather}</td><td>${arr[i].wind}</td><td>${arr[i].temp}</td></tr>`
+                                }
+                                $("#tb").html(str);
+                            },
+                            error: function(msg){
+                                alert(msg);
+                            }
+                        })
+                    }else{
+                        alert("请输入城市名");
+                    }  
+                })
+            })
+        </script>
+    </head>
+    <body>
+        <div class="container">
+            <div class="card">
+                <div class="card-header bg-success text-white text-center">
+                    <h1>查询城市天气</h1>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label id="info" for="city">城市</label>
+                        <input id="city" type="text" name="city" class="form-control" value="杭州">  
+                        <br>
+                        <button id="submit" class="btn btn-success form-control">查询</button>
+                        <br>
+                        <br>
+                        <table class="table table-bordered table-hover table-striped text-center">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>日期</th>
+                                    <th>天气</th>
+                                    <th>风向</th>
+                                    <th>温度</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tb"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer text-center">&copy api.asilu.com</div>
+            </div>
+        </div>
+    </body>
+</html>

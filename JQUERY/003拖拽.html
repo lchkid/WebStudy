@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="css/bootstrap-4.4.1-dist/bootstrap.min.css">
+        <script src="js/jquery-1.12.4.min.js"></script>
+        <style>
+            div {
+                width: 100px;
+                height: 100px;
+                background-color: red;
+                position: absolute;
+            }
+        </style>
+        <script>
+            $(function(){
+                $("div").mousedown(function(ev){
+                    let xx = ev.pageX - $(this).offset().left;
+                    let yy = ev.pageY - $(this).offset().top;
+                    let _this = this;
+                    $(document).mousemove(function(ev){
+                        $(_this).css({
+                            left: ev.pageX - xx,
+                            top: ev.pageY - yy
+                        })
+                    })
+                })
+                $(document).mouseup(function(){
+                    $(this).off("mousemove");
+                })
+            })
+        </script>
+    </head>
+    <body>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+    </body>
+</html>

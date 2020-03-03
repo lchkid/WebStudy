@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="css/bootstrap-4.4.1-dist/bootstrap.min.css">
+        <style>
+            #div1 {
+                width: 400px;
+                height: 220px;
+                padding: 20px;
+                display: none;
+                position: absolute;
+            }
+            #login {
+                position: fixed;
+                top: 50%;
+                margin-top: -15px;
+                left: 0;
+            }
+            #cancel {
+                position: absolute;
+                right: 0;
+                top: 0;
+            }
+        </style>
+        <script src="js/jquery-1.12.4.min.js"></script>
+        <script>
+            $(function(){
+                $("#login").click(function(){
+                    let yy = $(window).scrollTop() + ($(window).height() - $("#div1").height()) / 2;
+                    let xx = ($(window).width() - $("#div1").width()) / 2;
+                    $("#div1").css({
+                        display: "block",
+                        left: xx,
+                        top: yy
+                    });
+                    //on方法给同一对象指定多个事件
+                    $(window).on("scroll resize", function(){
+                        let yy = $(window).scrollTop() + ($(window).height() - $("#div1").height()) / 2;
+                        let xx = ($(window).width() - $("#div1").width()) / 2;
+                        $("#div1").css({
+                            left: xx,
+                            top: yy
+                        });
+                    })
+                    // $(window).scroll(function(){
+                    //     let yy = $(window).scrollTop() + ($(window).height() - $("#div1").height()) / 2;
+                    //     let xx = ($(window).width() - $("#div1").width()) / 2;
+                    //     $("#div1").css({
+                    //         left: xx,
+                    //         top: yy
+                    //     });
+                    // })
+                    // $(window).resize(function(){
+                    //     let yy = $(window).scrollTop() + ($(window).height() - $("#div1").height()) / 2;
+                    //     let xx = ($(window).width() - $("#div1").width()) / 2;
+                    //     $("#div1").css({
+                    //         left: xx,
+                    //         top: yy
+                    //     });
+                    // })
+                })
+
+                $("#cancel").click(function(){
+                    $("#div1").css("display", "none");
+                })
+
+
+            })
+        </script>
+    </head>
+    <body style="height: 3000px;">
+        <button id="login">登录</button>
+        <div id="div1" class="card">
+            <div class="card-body">
+                <input type="text" class="form-control"> 
+                <br>
+                <input type="text" class="form-control">
+            </div>
+            <button class="btn btn-success form-control">登录</button>
+            <button id="cancel">X</button>
+        </div>
+    </body>
+</html>

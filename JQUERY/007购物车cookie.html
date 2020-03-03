@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            list-style: none;
+            text-decoration: none;
+        }
+        img {
+            display: block;
+        }
+        body{
+            overflow: hidden;
+        }
+        #good-lists {
+            width: 840px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        #good-lists li {
+            float: left;
+            margin: 0 10px;
+        }
+        #good-lists li div:nth-child(1){
+            width: 220px;
+            height: 220px;
+            padding: 20px;
+        }
+        #good-lists li div:nth-child(2){
+            text-align: center;
+        }
+        #good-lists li div:nth-child(2) a{
+            height: 20px;
+            color: #000000;
+            font-size: 14px;
+            line-height: 20px;
+        }
+        #good-lists li div:nth-child(3){
+            text-align: center;
+            margin: 5px 0;
+        }
+        #good-lists li div:nth-child(3) button{
+            cursor: pointer;
+        }
+        #good-lists li div img {
+            width: 100%;
+            height: 100%;
+        }
+        #cart-logo {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            top: 50%;
+            right: 250px;
+            margin-top: -25px;
+            background: url("http://pic.51yuansu.com/pic3/cover/03/21/08/5b6aece5b808b_610.jpg") no-repeat;
+            background-size: 100%;
+        }
+        #cart-logo p {
+            width: 24px;
+            height: 24px;
+            background-color: orangered;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            font-size: 16px;
+            color: white;
+            position: absolute;
+            top: -10px;
+            right: 13px;
+        }
+        #cart {
+            width: 248px;
+            height: 100%;
+            border-left: 2px solid #000000;
+            position: absolute;
+            top: 0;
+            right: -250px;
+            background-color: #ffffff;
+        }
+        #cart-lists li{
+            font-size: 0;
+            width: 100%;
+            height: 62px;
+            position: relative;
+            border-bottom: 1px dashed grey;
+            padding: 5px 0;
+        }
+        #cart-lists li img {
+            width: 60px;
+            height: 60px;
+            border: 1px solid #000000;
+            margin: 0 15px;
+        }
+        #cart-lists li div{
+            position: absolute;
+            top: 5px;
+            right: 10px;
+        }
+        #cart-lists li div p{
+            width: 150px;
+            height: 40px;
+            line-height: 20px;
+            text-align: center;
+            font-size: 16px;           
+            margin-bottom: 2px;
+        }
+        #cart-lists li div button{
+            width: 40px;
+            height: 20px;
+        }
+        #cart-lists li div span{
+            font-size: 12px;
+            margin: 0 14px
+        }
+        #empty {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+        }
+    </style>
+    <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="js/jquery.cookie.js"></script>
+    <script>
+        $(function(){
+            itemSize();
+            itemList();
+            $.ajax({
+                type: "get",
+                url: "data.json",
+                success: function(data){
+                    for(let i = 0; i < data.length; i++){
+                    let node = $(`<li>
+                                    <div><a href="#"><img src=${data[i].img} alt=""></a></div>
+                                    <div><a href="#"><p>${data[i].name}</p></a></div>
+                                    <div><button id=${data[i].item} class="btn">加入购物车</button></div>
+                                </li>`);
+                    node.appendTo($("#good-lists"));
+                    }
+                },
+                error: function(msg){
+                    alert(msg);
+                }
+            })
+            //给加入购物车按钮设置事件委托
+            $("#good-lists").on("click", ".btn", function(){
+                //获取当前按钮的id
+                let id = this.id;
+                if($.cookie("goods")){
+                    let cookieArr = JSON.parse($.cookie("goods"));
+                    let already = false;  //设定判断变量，是否已存在该item
+                    for(let i = 0; i < cookieArr.length; i++){
+                        if(cookieArr[i].item == id){
+                            already = true; 
+                            cookieArr[i].cout += 1;
+                            break;  //如果有同样的id就让变量为真，数量+1，并结束循环
+                        }
+                    }
+                    //若already为假，表示cart中没有该item，则添加新数据
+                    if(!already){
+                        cookieArr.push({item: id, cout: 1});
+                    }
+                    //遍历完cart后重新设置cookie
+                    $.cookie("goods", JSON.stringify(cookieArr), {
+                        expires: 7
+                    });
+                }else{
+                    let arr = [{
+                        item: id,
+                        cout: 1
+                    }];
+                    let str = JSON.stringify(arr);
+                    $.cookie("goods", str, {
+                        expires: 7
+                    })
+                }
+                //每次点击加入购物车调用一次
+                itemSize();
+                itemList();
+            })
+
+            //给cart删除按钮设置事件委托
+            $("#cart").on("click", ".delete", function(){
+                let item = $(this).closest("li").remove().attr("id");
+                let cookieArr = JSON.parse($.cookie("goods"));
+                for(let i = 0; i < cookieArr.length; i++){
+                    if(item == cookieArr[i].item){
+                        cookieArr.splice(i, 1);
+                    }
+                }
+                if(cookieArr.length){
+                    $.cookie("goods", JSON.stringify(cookieArr), {
+                        expires: 7
+                    })
+                }else{
+                    $.removeCookie("goods");
+                }
+                itemSize();
+            })
+
+            //给购物车添加移入移出功能
+            $("#cart").mouseenter(function(){
+                $(this).stop(true).animate({
+                    right: 0
+                }, 500)
+            }).mouseleave(function(){
+                $(this).stop(true).animate({
+                    right: -250 
+                }, 500)
+            })
+
+            //empty cart
+            $("#empty").click(function(){
+                $.removeCookie("goods");
+                itemSize();
+                itemList();
+            })
+
+            //把cart总数量加到右侧购物车div上
+            function itemSize(){
+                if($.cookie("goods")){
+                    let arr = JSON.parse($.cookie("goods"));
+                    let sum = 0;
+                    for(let i = 0; i < arr.length; i++){
+                        sum += arr[i].cout;
+                    }
+                    $("#cart-logo p").html(sum);
+                }else{
+                    $("#cart-logo p").html(0);
+                }
+            }
+
+            //cart详情函数
+            function itemList(){
+                $("#cart-lists").html("");
+                $.ajax({
+                    type: "get",
+                    url: "data.json",
+                    success: function(data){
+                        if($.cookie("goods")){
+                            let nArr = [];
+                            let cookieArr = JSON.parse($.cookie("goods"));
+                            for(let i = 0; i < data.length; i++){
+                                for(let j = 0; j < cookieArr.length; j++){
+                                    if(data[i].item == cookieArr[j].item){
+                                        data[i].cout = cookieArr[j].cout;
+                                        nArr.push(data[i]);
+                                    }
+                                }
+                            }
+                            for(let i = 0; i < nArr.length; i++){
+                                let node = $(`<li id="${nArr[i].item}">
+                                                <img src=${nArr[i].img} alt="">
+                                                <div>
+                                                    <p>${nArr[i].name}</p>
+                                                    <span>商品数量：${nArr[i].cout}</span><button class="delete">删除</button>
+                                                </div>
+                                            </li>`);
+                                node.appendTo($("#cart-lists"));
+                            }
+                        }else{
+                            $("#cart-lists").html("");
+                        }
+                    },
+                    error: function(msg){
+                        alert(msg);
+                    }
+                })
+            }
+        })
+    </script>
+</head>
+<body>
+    <div id="good">
+        <ul id="good-lists"></ul>        
+    </div>
+    <div id="cart">
+        <div id="cart-logo"><p>0</p></div>
+        <ul id="cart-lists"></ul>
+        <button id="empty">清空购物车</button>
+    </div>
+</body>
+</html>
