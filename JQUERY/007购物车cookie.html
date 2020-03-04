@@ -89,7 +89,7 @@
             height: 62px;
             position: relative;
             border-bottom: 1px dashed grey;
-            padding: 5px 0;
+            padding: 10px 0;
         }
         #cart-lists li img {
             width: 60px;
@@ -99,8 +99,9 @@
         }
         #cart-lists li div{
             position: absolute;
-            top: 5px;
+            top: 10px;
             right: 10px;
+            vertical-align: top;
         }
         #cart-lists li div p{
             width: 150px;
@@ -116,7 +117,19 @@
         }
         #cart-lists li div span{
             font-size: 12px;
-            margin: 0 14px
+            margin-left: 10px;
+        }
+        #cart-lists li div.item-change {
+            position: unset;
+            display: inline-block;
+            margin:0 10px 0 5px;
+        }
+        #cart-lists li div.item-change button {
+            width: 12px;
+            height: 12px;
+            line-height: 12px;
+            text-align: center;
+            margin-bottom: 2px;
         }
         #empty {
             position: absolute;
@@ -182,6 +195,31 @@
                 //每次点击加入购物车调用一次
                 itemSize();
                 itemList();
+            })
+
+            //给cart + -按钮设置事件委托
+            $("#cart").on("click", ".change", function(){
+                let item = $(this).closest("li").attr("id");
+                let cookieArr = JSON.parse($.cookie("goods"));
+                for(let i = 0; i < cookieArr.length; i++){
+                    if(item == cookieArr[i].item){
+                        if($(this).html() == "+"){
+                            cookieArr[i].cout++;
+                        }else{
+                            if(cookieArr[i].cout != 1){
+                                cookieArr[i].cout--;
+                            }else{
+                                alert("数量不能少于1");
+                            }
+                        }
+                        $(this).parent().prevAll("span").html(`商品数量：${cookieArr[i].cout}`);
+                        $.cookie("goods", JSON.stringify(cookieArr), {
+                            expires: 7
+                        })
+                        itemSize();
+                        break;
+                    }
+                }
             })
 
             //给cart删除按钮设置事件委托
@@ -258,7 +296,10 @@
                                                 <img src=${nArr[i].img} alt="">
                                                 <div>
                                                     <p>${nArr[i].name}</p>
-                                                    <span>商品数量：${nArr[i].cout}</span><button class="delete">删除</button>
+                                                    <span>商品数量：${nArr[i].cout}</span>
+                                                    <div class="item-change"><button class="change">+</button><br>
+                                                    <button class="change">-</button></div>
+                                                    <button class="delete">删除</button>
                                                 </div>
                                             </li>`);
                                 node.appendTo($("#cart-lists"));
