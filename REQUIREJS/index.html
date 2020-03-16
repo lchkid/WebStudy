@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            #div1 {
+                width: 200px;
+                height: 200px;
+                background-color: red;
+                position: relative;
+                display: none;
+            }
+            #div2 {
+                width: 50px;
+                height: 50px;
+                position: absolute;
+                right: 0;
+                bottom: 0;
+                background-color: yellow;
+            }
+            #div3 {
+                width: 100px;
+                height: 100px;
+                position: absolute;
+                background-color: blue;
+                top: 0;
+                right: 0;
+            }
+        </style>
+        <script src="js/require.js" async="true" defer data-main="js/main"></script>
+        <!-- <script>
+            window.onload = function(){
+                const oBtn = document.getElementById("btn");
+                const oDiv1 = document.getElementById("div1");
+                const oDiv2 = document.getElementById("div2");
+                oBtn.onclick = function(){
+                    oDiv1.style.display = "block";
+                }
+                oDiv2.onmousedown = function(ev){
+                    let e = ev || window.event;
+                    let xx = oDiv1.offsetWidth - e.clientX;
+                    let yy = oDiv1.offsetHeight - e.clientY;
+                    document.onmousemove = function(ev){
+                        let e = ev || window.event;
+                        oDiv1.style.width = e.clientX + xx + "px";
+                        oDiv1.style.height = e.clientY + yy + "px";
+                    }
+                }
+                document.onmouseup = function(){
+                    document.onmousemove = null;
+                }
+            }
+        </script> -->
+    </head>
+    <body style="height: 3000px;">
+        <button id="btn">显示控件</button>
+        <div id="div1">
+            <div id="div2"></div>
+        </div>
+        <div id="div3"></div>
+    </body>
+</html>
