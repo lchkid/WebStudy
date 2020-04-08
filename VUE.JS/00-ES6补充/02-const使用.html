@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<script>
+    // const常量是指指向的对象不能修改，对象的属性可以修改
+    const obj = {
+        name: 'lch',
+        age: 18,
+        height: 1.88,
+    }
+    console.log(obj); // {name: "lch", age: 18, height: 1.88}
+
+
+    // 错误 Assignment to constant variable.
+    // obj = {
+    //     name: 'kid',
+    //     age: 81,
+    //     height: 1.77,
+    // }
+
+    obj.name = 'kid';
+    obj.age = 81;
+    obj.height = 1.77;
+    console.log(obj); // {name: "kid", age: 81, height: 1.77}
+</script>    
+</body>
+</html>

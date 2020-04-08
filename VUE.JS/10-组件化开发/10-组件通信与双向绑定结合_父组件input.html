@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .active {
+      background-color: red;
+    }
+  </style>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <cpn></cpn>
+  </div>
+
+<template id="cpn">
+  <div>
+    <h1>父组件标题</h1>
+    <h2>当前点击的标签是(父组件data-currentId)：{{currentId}}</h2>
+    请输入标签：<input type="text" v-model="currentId">
+    <!-- 监听自定义事件调用方法不带参数会默认传入子组件发射过来的参数 -->
+    <cpnc @cateclick="getCate" :id="currentId"></cpnc>
+  </div>
+</template>
+<template id="cpnc">
+  <div>
+    <h1>子组件标题</h1>
+    <button v-for="item in categories" @click="btnClick(item)" :class="{active: item.id == id}">
+      {{item.value}}
+    </button>
+    <h2>当前点击的标签是(子组件props-id)：{{id}}</h2>
+  </div>
+</template>
+<script>
+  const app = new Vue({
+    el: '#app',
+    components: {
+      'cpn': {
+        template: '#cpn',
+        components: {
+          'cpnc': {
+            template: '#cpnc',
+            data() {
+              return {
+                categories: [
+                  {id: 'rmtj', value: '热门推荐'},
+                  {id: 'sjsm', value: '手机数码'},
+                  {id: 'jydq', value: '家用电器'},
+                  {id: 'dnbg', value: '电脑办公'}
+                ]
+              }
+            },
+            methods: {
+              btnClick(item) {
+                this.$emit('cateclick', item);
+              }
+            },
+            props: {
+              id: ''
+            }
+          }
+        },
+        methods: {
+          getCate(item) {
+            this.currentId = item.id;
+          }
+        },
+        data() {
+          return {
+            currentId: 'rmtj'
+          }
+        }        
+      }
+    }
+	})
+</script>
+</body>
+</html>

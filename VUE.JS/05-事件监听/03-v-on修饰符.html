@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app" @click="divClick">
+      <!-- 调用event.stopPropagation() -->
+      <button @click.stop="btnClick">停止冒泡</button>
+      <br><br>
+      <!-- 调用event.preventDefault() -->
+      <a href="https://lchkid.top" @click.prevent="btnClick">阻止默认行为</a>
+      <br><br>
+      <input type="text" @keyUp.enter="input" value="keyAlias">
+      <br>
+      <input type="text" @keyUp.13="input" value="keyCode">
+      <br><br>
+      <button @click.once="onceClick">只能点击一次</button>
+    </div>
+</body>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+
+        },
+        methods: {
+          btnClick() {
+            console.log('btnClick')
+          },
+          divClick() {
+            console.log('divClick')
+          },
+          input() {
+            console.log('input')
+          },
+          onceClick() {
+            console.log('once')
+          }
+        }
+		})
+</script>  
+</body>
+</html>

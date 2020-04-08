@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- <span>{{message}}</span>
+        <input type="text" :placeholder="input">
+        <button @click="switchLogin">切换类型</button> -->
+        <span v-if="isUser">
+          <label for="username">账号登陆</label>
+          <!-- 添加key确定唯一性 -->
+          <input type="text" id="username" placeholder="用户账号" key="username">
+        </span>
+        <span v-else>
+          <label for="username">邮箱登陆</label>
+          <input type="text" id="email" placeholder="用户邮箱" key="email">
+        </span>
+        <button @click="isUser = !isUser">切换类型</button>
+    </div>
+</body>
+<script>
+    // const app = new Vue({
+    //     el: '#app',
+    //     data: {
+    //       message: '账号登陆',
+    //       input: '用户名',
+    //       userlogin: true
+    //     },
+    //     methods: {
+    //       switchLogin() {
+    //         this.userlogin = !this.userlogin;
+    //         if(!this.userlogin) {
+    //           this.message = '邮箱登录';
+    //           this.input = '邮箱';
+    //         }else {
+    //           this.message = '账号登陆';
+    //           this.input = '用户名';
+    //         }
+    //       }
+    //     }
+		// })
+    const app = new Vue({
+        el: '#app',
+        data: {
+          isUser: true,
+        },
+    })
+</script>  
+</body>
+</html>

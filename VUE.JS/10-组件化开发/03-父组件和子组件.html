@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <cpn2></cpn2>
+    <cpn1></cpn1>
+  </div>
+<script>
+  // cpn2的子组件
+  const cpnConstructor1 = Vue.extend({
+    template: `
+    <div>
+      <h1>这是第一个组件</h1>
+      <p>这是第一段文字</p>
+    </div>`
+  })
+
+  // cpn1的父组件
+  const cpnConstructor2 = Vue.extend({
+    template: `
+    <div>
+      <h1>这是第二个组件</h1>
+      <p>这是第二段文字</p>
+      <cpn1></cpn1>
+    </div>`,
+    components: {
+      'cpn1': cpnConstructor1
+    }
+  })
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello world',
+    },
+    components: {
+      'cpn2': cpnConstructor2
+    }
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <cpn></cpn>
+    <!--等同于 <cpn v-slot:default="slotProps"> -->
+    <!--等同于 <cpn v-slot="slotProps">   -->
+    <cpn #default="slotProps">
+      <!-- v-slot="slotProps"在非独占默认插槽只能用在template slotProps可以自定义-->
+      <!-- <template v-slot:lang="slotProps">
+        <span>{{slotProps.data}}</span>
+      </template> -->
+
+      <!-- 当独占默认插槽时，即单slot且无name，此时v-slot:default=""可以写在组件上 -->
+      <span>{{slotProps.data}}</span>
+      
+    </cpn>
+  </div>
+
+<template id="cpn">
+  <div>
+    <!-- 组件内的数据绑定给data 可以自定义 -->
+    <slot :data="languages">
+      <ul> 
+        <li v-for="item in languages" :key="item">{{item}}</li>
+      </ul>
+    </slot>
+  </div>
+</template>
+<script>
+  const app = new Vue({
+    el: '#app',
+    components: {
+      'cpn': {
+        template: '#cpn',
+        data() {
+          return {
+            languages: ['JavaScript', 'Java', 'Python', 'c++', 'Swift', 'Go']
+          }
+        }
+      }
+    }
+	})
+</script>
+</body>
+</html>

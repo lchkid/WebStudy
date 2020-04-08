@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <cpn></cpn>
+  </div>
+
+<template id="cpn">
+  <div>
+    <h1>父组件标题</h1>
+    <cpnc></cpnc>
+  </div>
+</template>
+
+<template id="cpnc">
+  <div>
+    <h1>子组件标题</h1>
+    <button @click="cpncCLick">按钮</button>
+  </div>
+</template>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello world',
+    },
+    methods: {
+      
+    },
+    components: {
+      'cpn': {
+        template: '#cpn',
+        data() {
+          return {
+            name: '父组件name属性'
+          }
+        },
+        methods: {
+          showFunc() {
+            console.log('父组件showFunc方法')
+            console.log(this.$parent)
+          }
+        },
+        components: {
+          'cpnc': {
+            template: '#cpnc',
+            methods: {
+              cpncCLick() {
+                console.log(this.$parent);
+                console.log(this.$parent.name);
+                this.$parent.showFunc();
+                console.log(this.$root);
+              }
+            }
+          }
+        }
+      }
+    }
+	})
+</script>
+</body>
+</html>

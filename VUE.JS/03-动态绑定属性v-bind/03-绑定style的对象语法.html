@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        .active {
+            color: red;
+        }
+        .bctive {
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- <h2 :style="{key1(css属性名): value1(css属性值), key2(css属性名): value2(css属性值)}">{{message}}</h2> -->
+        <h2 :style="{'font-size': '50px', color: 'red', backgroundColor: 'orange'}">{{message}}</h2>
+        <h2 :style="{'font-size': size + 'px', color: ys, backgroundColor: 'orange'}">{{message}}</h2>
+        <h2 :style="getStyles()">{{message}}</h2>
+    </div>
+</body>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: 'hello world',
+            size: 100,
+            ys: 'blue'
+        },
+        methods: {
+            getStyles: function() {
+                return {'font-size': this.size + 'px', color: this.ys, backgroundColor: 'orange'}
+            }
+        }
+    })
+</script>
+</html>

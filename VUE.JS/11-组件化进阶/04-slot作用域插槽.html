@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <cpn></cpn>
+    <cpn>
+      <!-- 可以加在template标签，prop可以自定义 data为组件模板中绑定的属性 -->
+      <template slot-scope="prop">
+        <span v-for="item in prop.data">{{item}} </span>
+      </template>
+    </cpn>
+    <cpn>
+      <!-- 也可以直接加在非template的标签 -->
+      <span slot-scope="prop">{{prop.data.join(' - ')}}</span>
+    </cpn>
+  </div>
+
+<template id="cpn">
+  <div>
+    <slot :data="languages">
+      <ul> 
+        <li v-for="item in languages">{{item}}</li>
+      </ul>
+    </slot>
+  </div>
+</template>
+<script>
+  const app = new Vue({
+    el: '#app',
+    components: {
+      'cpn': {
+        template: '#cpn',
+        data() {
+          return {
+            languages: ['JavaScript', 'Java', 'Python', 'c++', 'Swift', 'Go']
+          }
+        }
+      }
+    }
+	})
+</script>
+</body>
+</html>

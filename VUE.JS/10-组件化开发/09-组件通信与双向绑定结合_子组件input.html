@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .active {
+      background-color: red;
+    }
+  </style>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <cpn></cpn>
+  </div>
+
+<template id="cpn">
+  <div>
+    <h1>父组件标题</h1>
+    <cpnc :number1="num1" :number2="num2" @changenum1="changenum1" @changenum2="changenum2"></cpnc>
+  </div>
+</template>
+<template id="cpnc">
+  <div>
+    <h1>子组件标题</h1>
+    <h2>props:{{number1}}</h2>
+    <h2>data:{{dnumber1}}</h2>
+    <input type="text" :value="dnumber1" @input="p2d1">
+    <h2>props:{{number2}}</h2>
+    <h2>data:{{dnumber2}}</h2>
+    <input type="text" :value="dnumber2" @input="p2d2">
+  </div>
+</template>
+<script>
+  const app = new Vue({
+    el: '#app',
+    components: {
+      'cpn': {
+        template: '#cpn',
+        data() {
+          return {
+            num1: 1,
+            num2: 2
+          }
+        },
+        methods: {
+          changenum1(n) {
+            this.num1 = n;
+          },
+          changenum2(n) {
+            this.num2 = n;
+          }
+        },
+        components: {
+          'cpnc': {
+            template: '#cpnc',
+            data() {
+              return {
+                dnumber1: this.number1,
+                dnumber2: this.number2
+              }
+            },
+            methods: {
+              p2d1(event) {
+                this.dnumber1 = event.target.value;
+                this.$emit('changenum1', this.dnumber1);
+                this.dnumber2 = this.dnumber1 * 100;
+                this.$emit('changenum2', this.dnumber2);
+              },
+              p2d2(event) {
+                this.dnumber2 = event.target.value
+                this.$emit('changenum2', this.dnumber2);
+                this.dnumber1 = this.dnumber2 / 100;
+                this.$emit('changenum1', this.dnumber1);
+              }
+            },
+            props: {
+              number1: {
+
+              },
+              number2: {
+
+              }
+            }
+          }
+        }
+      }
+    }
+	})
+</script>
+</body>
+</html>

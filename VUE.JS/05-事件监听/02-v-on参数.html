@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+      <!-- 1.方法没有参数时可以省略() -->
+      <button @click="click1()">按钮1</button>
+      <button @click="click1">按钮1</button>
+      <br><br>      
+      <!-- 2.方法有一个参数时 -->
+        <!-- 2.1.传入普通参数，正常输出 -->
+      <button @click="click2('kiddo')">按钮2</button>
+        <!-- 2.2.不传入参数有()，输出undefined -->
+      <button @click="click2()">按钮2</button>
+        <!-- 2.3.不传入参数没有()，输出当前事件event -->
+      <button @click="click2">按钮2</button>
+        <!-- 2.3.等同于传入$event -->
+      <button @click="click2($event)">按钮2</button>
+      <br><br>
+      <!-- 3.方法有多个参数时 -->
+        <!-- 3.1传入多个普通参数 -->
+      <button @click="click3('lchkid', 18)">按钮3</button>
+        <!-- 3.2传入不足数量的普通参数 lchkid undefined-->
+      <button @click="click3('lchkid')">按钮3</button>
+        <!-- 3.3不传入参数有() undefined undefined-->
+      <button @click="click3()">按钮3</button>
+        <!-- 3.4不传入参数没有() event undefined-->
+      <button @click="click3">按钮3</button>
+      <button @click="click3('lchkid', $event)">按钮3</button>
+    </div>
+</body>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            
+        },
+        methods: {
+          click1() {
+            console.log('lchkid');
+          },
+          click2(name) {
+            console.log(name);
+          },
+          click3(name, age) {
+            console.log(name, age);
+          }
+        }
+		})
+</script>  
+</body>
+</html>

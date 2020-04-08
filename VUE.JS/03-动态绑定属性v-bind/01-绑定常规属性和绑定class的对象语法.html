@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../js/vue.js"></script>
+    <style>
+        .active {
+            color: red;
+        }
+        .bctive {
+            font-size: 30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!-- <a v-bind:href="aHref">baidu一下</a>
+        <img v-bind:src="imgUrl" alt=""> -->
+        <!-- <a :href="aHref">baidu一下</a>
+        <img :src="imgUrl" alt=""> -->
+        <!-- <h2 :class="{key1(类名1): value1(boolean), key2(类名2): value2(boolean)}">{{message}}</h2> -->
+        <h2 :class="{active: false, bctive: false}">{{message}}</h2>
+        <button v-on:click="changeColor">改变颜色</button>
+        <button v-on:click="changeSize">改变大小</button>
+        <h2 :class="{active: isActive, bctive: isBctive}">{{message}}</h2>
+    </div>
+</body>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            message: 'hello world',
+            imgUrl: 'https://wx2.sinaimg.cn/mw690/bca38fe5ly1gdbqp2vjrgj20tz0t9aip.jpg',
+            aHref: 'https://lchkid.top',
+            isActive: true,
+            isBctive: true
+        },
+        methods: {
+            changeColor: function() {
+                this.isActive = !this.isActive;
+            },
+            changeSize: function() {
+                this.isBctive = !this.isBctive;
+            }
+        }
+    })
+</script>
+</html>

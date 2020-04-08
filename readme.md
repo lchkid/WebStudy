@@ -1,3 +1,8 @@
-# 项目说明
+### WebStudy
 
-## 这是在html、css、javascript学习中写过的简单demo
++ HTML + CSS
++ Javascript
++ jQuery
++ requireJS
++ Game 2048
++ Vue.js

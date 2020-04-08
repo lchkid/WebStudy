@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <div >{{nums}}</div>
+    <button @click="funcFilter">得到小于20的数</button>
+    <button @click="funcMap">得到数组元素的2倍数</button>
+    <button @click="funcReduce">得到数组元素的和</button>
+    <button @click="funcMath">得到数组元素小于20的数的2倍的和</button>
+  </div>
+  <script>
+    const app = new Vue({
+      el: "#app",
+      data: {
+        nums : [10, 11, 12, 15, 20, 30, 40]
+      },
+      methods: {
+        funcFilter() {
+          console.log(this.nums.filter(function(n) {
+            return n < 20;
+          }));
+        },
+        funcMap() {
+          console.log(this.nums.map(function(n) {
+            return n * 2;
+          }));
+        },
+        funcReduce() {
+          console.log(this.nums.reduce(function(init, n) {
+            return init + n;
+          }, 0))
+        },
+        funcMath () {
+          console.log(this.nums.filter(function(n) {
+            return n < 20;
+          }).map(function(n) {
+            return n * 2;
+          }).reduce(function(init, n) {
+            return init + n;
+          }, 0))
+        }
+      }
+    })
+  </script>  
+</body>
+</html>

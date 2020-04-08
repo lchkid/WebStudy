@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+      <button @click="isShow = !isShow">button</button>
+      <h2 v-if="isShow" id="a">{{isShow}}</h2>
+      <h2 v-show="isShow" id="b">{{isShow}}</h2>
+    </div>
+</body>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+          isShow: true
+        },
+        methods: {
+          
+        }
+		})
+</script>  
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <cpn>
+      <!-- v-slot:name 必须使用在template上 -->
+      <template v-slot:left>
+        <span>aaa</span>
+      </template>
+      <!-- 语法糖 -->
+      <template #right>
+        <span>bbb</span>
+      </template>
+      <span>ccc</span>
+    </cpn>
+    <cpn>
+      <button slot="middle">替换</button>
+    </cpn>
+  </div>
+
+<template id="cpn">
+  <div>
+    <slot name="left"><span>左边</span></slot>
+    <slot name="middle"><span>中间</span></slot>
+    <slot name="right"><span>右边</span></slot>
+    <slot><span>不具名</span></slot>
+  </div>
+</template>
+<script>
+  const app = new Vue({
+    el: '#app',
+    components: {
+      'cpn': {
+        template: '#cpn',
+      }
+    }
+	})
+</script>
+</body>
+</html>

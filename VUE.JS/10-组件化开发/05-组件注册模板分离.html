@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <cpn1></cpn1>
+    <cpn2></cpn2>
+  </div>
+
+<!-- 1.script标签分离 注意(text/x-template) -->
+<script type="text/x-template" id="t1">
+  <h1>script标签</h1>
+</script>
+<!-- 2.template标签分离 -->
+<template id="t2"> 
+  <h1>template标签</h1>
+</template>
+
+<script>
+  Vue.component('cpn1', {
+    template: '#t1'
+  })
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: 'hello world'
+    },
+    components: {
+      'cpn2': {
+        template: '#t2'
+      }
+    }
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <cpn></cpn>
+  </div>
+
+<template id="cpn">
+  <div>
+    <h1>父组件标题</h1>
+    <!-- 将父组件message和movies绑定(传递)到子组件nmessage和nmovies -->
+    <!-- 注意props驼峰在html中无视大小写需要用"-" -->
+    <cpnc :n-Message="message" :nmovies="movies" :ntemp="temp"></cpnc>
+  </div>
+</template>
+<template id="cpnc">
+  <div>
+    <h1>子组件标题</h1>
+    <ul>
+      <li v-for="item in nmovies">{{item}}</li>
+    </ul>
+    <h2>{{nMessage}}</h2>
+    <h3>{{ntemp}}</h3>
+  </div>
+</template>
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      
+    },
+    components: {
+      'cpn': {
+        template: '#cpn',
+        data() {
+          return {
+            message: 'hello world',
+            movies: ['海贼王', '火影忍者', '进击的巨人', '食戟之灵'],
+            temp: 123
+          }
+        },
+        components: {
+          'cpnc': {
+            template: '#cpnc',
+            // props: ['nmessage', 'nmovies'],
+            props: {
+              nMessage: String, // 约束类型
+              // nmovies: Array,
+              nmovies: {
+                type: Array,
+                // default: ['海贼王'], // 数组/对象默认值必须是函数
+                default() {
+                  return ['海贼王']
+                }
+              },
+              ntemp: {
+                type: Number, 
+                default: 100, // 未传值显示默认值
+                required: true // 使用组件必传值
+              }
+            }
+          }
+        }
+      }
+    }
+	})
+</script>
+</body>
+</html>

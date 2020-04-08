@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="../js/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <cpn></cpn>
+  </div>
+
+<template id="temp"> 
+  <h1>{{title}}</h1>
+</template>
+<script>
+  Vue.component('cpn', {
+    template: '#temp',
+    /* 
+    为什么组件中的data必须是函数：
+      如果data是对象，所有组件都共用这同一个对象
+      对象属性发生变化，所有组件都会跟着发生变化
+
+      当data是一个返回对象的函数时，每当组件调用该函数
+      返回的都是一个全新的对象，该对象属性发生变化不会影响其他组件调用data()获取的对象的属性
+    */
+    data() {
+      return {
+        title: '我是标题'
+      }
+    }
+  })
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+
+    }
+	})
+</script>
+</body>
+</html>
